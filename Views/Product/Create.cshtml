@@ -1,0 +1,66 @@
+﻿@using MercadoSocial.Enums
+@model ProductModel
+@{
+    ViewData["Title"] = "Criar Produto";
+}
+
+<div class="container-sm my-lg-5">
+
+    <div class="mt-5">
+        <h1>Novo Produto</h1>
+    </div>
+
+    <form class="mt-5 py-md-5 py-4 px-4 rounded-2 shadow"
+          style="background: #eee;"
+       asp-controller="Product"
+       asp-action="Create"
+       method="post"
+       enctype="multipart/form-data"
+    >
+
+        <div class="mb-3">
+            <label for="name" class="form-label">Nome do produto</label>
+            <input type="text" class="form-control" id="name" asp-for="Name">
+            <p class="text-danger text-sm">@Html.ValidationMessageFor(x => x.Name)</p>
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Descrição</label>
+            <input type="text" class="form-control" id="description" asp-for="Description">
+            <p class="text-danger text-sm">@Html.ValidationMessageFor(x => x.Description)</p>
+        </div>
+
+        <div class="mb-3">
+            <label for="quantity" class="form-label">Quantidade</label>
+            <input type="number" class="form-control" id="quantity" asp-for="Quantity">
+            <p class="text-danger text-sm">@Html.ValidationMessageFor(x => x.Quantity)</p>
+        </div>
+
+        <div class="mb-3">
+            <label for="section" class="form-label">Seção</label>
+            <select class="form-select" asp-for="Section">
+                <option value="" selected disabled>Escolha a seção do seu produto</option>
+                <option value="@SecaoEnum.Cereais">Cereais</option>
+                <option value="@SecaoEnum.Bebidas">Bebidas</option>
+                <option value="@SecaoEnum.Padaria">Padaria</option>
+                <option value="@SecaoEnum.Enlatados">Enlatados</option>
+                <option value="@SecaoEnum.Biscoitos">Biscoitos</option>
+                <option value="@SecaoEnum.Laticinios">Laticínios</option>
+                <option value="@SecaoEnum.ProdutoLimzepa">Produto de Limpeza</option>
+                <option value="@SecaoEnum.HigienePessoal">Higiene Pessoal</option>
+                <option value="@SecaoEnum.Hortifrut">Hortifrút</option>
+            </select>
+            <p class="text-danger text-sm">@Html.ValidationMessageFor(x => x.Section)</p>
+        </div>
+
+        <div class="mb-3">
+            <label for="produtoImage" class="form-label">Imagem do Produto</label>
+            <input class="form-control" type="file" id="produtoImage" name="imageFile">
+            <!--<p class="text-danger text-sm">@Html.ValidationMessageFor(x => x.Image)</p>-->
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-5">Cadastrar</button>
+    </form>
+
+
+</div>

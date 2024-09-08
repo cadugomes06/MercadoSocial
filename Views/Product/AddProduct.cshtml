@@ -1,0 +1,69 @@
+﻿@model ProductModel
+@using MercadoSocial.Enums
+@{
+    ViewData["Title"] = "Adicionar Produto";
+}
+
+
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-primary position-relative d-flex align-items-center justify-content-center alert-section" role="alert">
+        <button type="button" class="btn btn-secondary btn-sm close-alert closeButton" aria-label="Close">X</button>
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@if (TempData["ErroMessage"] != null)
+{
+    <div class="alert alert-danger position-relative  d-flex align-items-center alert-section" role="alert">
+        <button type="button" class="btn btn-danger btn-sm close-alert closeButton" aria-label="Close">X</button>
+    </div>
+}
+
+
+<div class="my-5">
+    <h1>Adicionar Produto</h1>
+</div>
+
+
+<div class="container mt-5 py-4 box-shadow shadow d-flex justify-content-center rounded-2" style="background: #eee">
+
+    <form method="post" asp-action="AddProducts" asp-controller="Product">
+
+        <div class="mb-3" style="width: 22rem">
+            <label for="sectionSelect" class="form-label">Seção</label>
+            <select class="form-select" asp-for="Section" id="sectionSelect">
+                <option value="" selected disabled>Escolha a seção do seu produto</option>
+                <option value="@SecaoEnum.Cereais">Cereais</option>
+                <option value="@SecaoEnum.Bebidas">Bebidas</option>
+                <option value="@SecaoEnum.Padaria">Padaria</option>
+                <option value="@SecaoEnum.Enlatados">Enlatados</option>
+                <option value="@SecaoEnum.Biscoitos">Biscoitos</option>
+                <option value="@SecaoEnum.Laticinios">Laticínios</option>
+                <option value="@SecaoEnum.ProdutoLimzepa">Produto de Limpeza</option>
+                <option value="@SecaoEnum.HigienePessoal">Higiene Pessoal</option>
+                <option value="@SecaoEnum.Hortifrut">Hortifrút</option>
+            </select>
+            <p class="text-danger text-sm">@Html.ValidationMessageFor(x => x.Section)</p>
+        </div>
+
+        <div class="mb-3">
+            <label for="section" class="form-label">Produto</label>
+
+            <select class="form-select" asp-for="Id" id="productSelect">
+                <option value="" selected disabled>Escolha um produto</option>
+            </select>
+            <!-- <p class="text-danger text-sm">@Html.ValidationMessageFor(x => x.Section)</p>-->
+        </div>
+
+        <div class="mb-3">
+            <label for="quantity" class="form-label">Quantidade</label>
+            <input type="number" class="form-control" id="quantity" asp-for="Quantity" min="1" max="20">
+            <p class="text-danger text-sm">@Html.ValidationMessageFor(x => x.Quantity)</p>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3 w-100">Adicionar</button>
+    </form>
+
+</div>

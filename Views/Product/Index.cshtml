@@ -1,0 +1,103 @@
+﻿@model List<ProductModel>
+@using MercadoSocial.Enums
+@{
+    ViewData["Title"] = "Produtos";
+}
+
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-primary position-relative d-flex align-items-center justify-content-center popUp-section"  role="alert">
+            <button type="button" class="btn btn-secondary btn-sm close-alert" aria-label="Close">X</button>
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    @if (TempData["ErroMessage"] != null)
+    {
+        <div class="alert alert-danger position-relative  d-flex align-items-center popUp-section" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert" aria-label="Close">X</button>
+        </div>
+    }
+
+
+
+<div class="container-sm my-lg-5" >
+
+
+     
+    <div class="my-lg-5">
+        <h1>Página de Produtos</h1>
+    </div>
+
+    <div>
+        <a class="btn btn-success" role="button" asp-controller="Product" asp-action="Create">Criar produto</a>
+        <a class="btn btn-info" role="button" asp-controller="Product" asp-action="AddProduct">Adicionar Produto</a>
+    </div>
+
+
+        <div class="my-3" style="width: 20%;">
+            <label for="filter" class="form-label">Filtrar por Seção</label>
+            <select class="form-select" id="filterSection" name="filter">
+                <option value="" selected disabled>Todos</option>
+                <option value="@SecaoEnum.Cereais">Cereais</option>
+                <option value="@SecaoEnum.Bebidas">Bebidas</option>
+                <option value="@SecaoEnum.Padaria">Padaria</option>
+                <option value="@SecaoEnum.Enlatados">Enlatados</option>
+                <option value="@SecaoEnum.Biscoitos">Biscoitos</option>
+                <option value="@SecaoEnum.Laticinios">Laticínios</option>
+                <option value="@SecaoEnum.ProdutoLimzepa">Produto de Limpeza</option>
+                <option value="@SecaoEnum.HigienePessoal">Higiene Pessoal</option>
+                <option value="@SecaoEnum.Hortifrut">Hortifrút</option>
+            </select>
+        </div>
+
+
+
+    <div class="mt-5 d-flex flex-row align-content-center justify-content-center 
+         flex-wrap gap-5 py-4 rounded-md box-shadow shadow-lg rounded-md"
+         style="background-color: #eee"
+         id="containerProducts">
+
+        @if(Model != null && Model.Any())
+        {
+            foreach(ProductModel product in Model)
+            {
+               <div class="card position-relative" style="width: 18rem;">
+                    @if (!string.IsNullOrEmpty(product.ImageBase64))
+                    {
+                        <img src="data:image/png;base64,@product.ImageBase64" 
+                             class="card-img-top" 
+                             alt="imagem-produto"
+                             style="height: 14rem;"
+                        >
+                        <a href="Product/Edit/@product.Id" class="position-absolute top-0 text-white icon-link icon-link-hover"
+                           style="right: 2px; top: 0px; --bs-icon-link-transform: translate3d(0, -.125rem, 0);">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#808080" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
+                            </svg>
+                        </a>
+                    }
+
+                   <div class="card-body">
+
+                       <div class="d-flex align-content-center justify-content-between">
+                         <h5 class="card-title">@product.Name</h5>
+                            <p class="text-dark fs-6 text-center">
+                                Total
+                               <span class="text-info">@product.Quantity</span>
+                           </p>
+                       </div>
+
+                        <p class="card-text">@product.Description</p>
+                     <a href="#" class="btn btn-primary">Adicionar a Cesta</a>
+                   </div>
+              </div>                
+            }    
+        }
+     </div>
+
+
+    
+
+</div>

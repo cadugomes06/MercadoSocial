@@ -1,0 +1,12 @@
+.close-alert {
+    position: absolute;
+    right: -5px;
+    top: -5px;
+}
+
+.hide {
+    visibility: hidden;
+    display: none;
+    height: 0;
+    width: 0;
+}
