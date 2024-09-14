@@ -38,7 +38,6 @@ namespace MercadoSocial.Controllers
 
 
 
-
         public IActionResult Create()
         {
             return View();

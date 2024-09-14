@@ -1,0 +1,61 @@
+﻿@using MercadoSocial.Enums
+@model UserModel
+@{
+    TempData["Title"] = "Criar Novo Usuário";
+}
+
+
+<div class="container-sm my-lg-5">
+
+    <div class="mt-5">
+        <h1>Novo Usuário</h1>
+    </div>
+
+    <form class="mt-5 py-md-5 py-4 px-4 rounded-2 shadow"
+          style="background: #eee;"
+          asp-controller="User"
+          asp-action="Create"
+          method="post"
+          enctype="multipart/form-data">
+
+        <div class="mb-3">
+            <label for="name" class="form-label">Nome do usuário</label>
+            <input type="text" class="form-control" id="name" asp-for="Name">
+            <p class="text-danger text-sm">@Html.ValidationMessageFor(x => x.Name)</p>
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Email</label>
+            <input type="text" class="form-control" id="description" asp-for="Email">
+            <p class="text-danger text-sm">@Html.ValidationMessageFor(x => x.Email)</p>
+        </div>
+
+        <div class="mb-3">
+            <label for="quantity" class="form-label">Login</label>
+            <input type="text" class="form-control" id="quantity" asp-for="Login">
+            <p class="text-danger text-sm">@Html.ValidationMessageFor(x => x.Login)</p>
+        </div>
+
+
+        <div class="mb-3">
+            <label for="section" class="form-label">Seção</label>
+            <select class="form-select" asp-for="Perfil">
+                <option value="" selected disabled>Escolha um perfil para o usuário</option>
+                <option value="@PerfilEnum.padrao">Padrão</option>
+                <option value="@PerfilEnum.admin">Administrador</option>
+            </select>
+            <p class="text-danger text-sm">@Html.ValidationMessageFor(x => x.Perfil)</p>
+        </div>
+
+        <div class="mb-3">
+            <label for="quantity" class="form-label">Senha</label>
+            <input type="password" class="form-control" id="quantity" asp-for="Password">
+            <p class="text-danger text-sm">@Html.ValidationMessageFor(x => x.Password)</p>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-5">Cadastrar</button>
+        <a class="btn btn-secondary mt-5" asp-controller="User" asp-action="Index">Voltar</a>
+    </form>
+
+
+</div>

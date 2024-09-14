@@ -8,7 +8,7 @@
 /Modelos/
 /Recent/
 /SendTo/
-
+Migrations
 .vs/
 appsettings.json
 bin/
@@ -28,3 +28,5 @@ packages/
 
 *.pfx
 *.pem
+
+console.log

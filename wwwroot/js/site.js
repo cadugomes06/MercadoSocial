@@ -8,17 +8,8 @@ if (btnClose != null && popUp != null) {
 }
 
 function closePopupScreen() {
-    console.log("function desativar pop-up")
     popUp.classList.add("hide")
 }
-
-
-
-
-
-$(".close-alert").on('click', () => {
-    $('.alert').attr({ "style": "display: none;" });
-    })
 
 
 

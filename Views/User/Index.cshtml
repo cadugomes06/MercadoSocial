@@ -1,0 +1,57 @@
+﻿@model List<UserModel>;
+@{
+    ViewData["Title"] = "listagem de Usuário";
+}
+
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-primary position-relative d-flex align-items-center justify-content-center popUp-section" role="alert">
+        <button type="button" class="btn btn-secondary btn-sm close-alert" aria-label="Close">X</button>
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@if (TempData["ErroMessage"] != null)
+{
+    <div class="alert alert-danger position-relative  d-flex align-items-center popUp-section" role="alert">
+        <button type="button" class="btn btn-danger btn-sm close-alert" aria-label="Close">X</button>
+    </div>
+}
+
+<h2 class="my-5">Listagem de Usuarios</h2>
+
+<a type="button" class="btn btn-outline-primary" asp-controller="User" asp-action="Create" role="button">Novo Usuário</a>
+
+<table class="table table-striped-columns mt-lg-5">
+    <thead>
+        <tr class="border-1">
+            <th scope="col">N°</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Email</th>
+            <th scope="col">Perfil</th>
+            <th scope="col">Data de Criação</th>
+            <th scope="col">Editar</th>
+            <th scope="col">Apagar</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var user in Model)
+            {
+                <tr class="border-1">
+                    <th scope="row">@user.Id</th>
+                    <td>@user.Name</td>
+                    <td>@user.Email</td>
+                    <td>@user.Perfil</td>
+                    <td>@user.DataCriacao</td>
+                    <td><a class="btn btn-secondary" type="button" onclick="location.href='@Url.Action("Edit", "User", new { id = user.Id })'">Editar</a></td>
+                    <td><a class="btn btn-danger" type="button" onclick="location.href='@Url.Action("DeleteConfirmation", "User", new { id = user.Id })'">Apagar</a></td>
+                </tr>
+
+            }
+        }
+
+    </tbody>
+</table>

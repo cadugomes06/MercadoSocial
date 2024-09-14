@@ -134,3 +134,4 @@ C:\Users\FamiliaAraujo\OneDrive\Documentos\Programacao\backend\.NET\MercadoSocia
 C:\Users\FamiliaAraujo\OneDrive\Documentos\Programacao\backend\.NET\MercadoSocial\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 C:\Users\FamiliaAraujo\OneDrive\Documentos\Programacao\backend\.NET\MercadoSocial\obj\Debug\net8.0\MercadoSocial.csproj.AssemblyReference.cache
 C:\Users\FamiliaAraujo\OneDrive\Documentos\Programacao\backend\.NET\MercadoSocial\obj\Debug\net8.0\MercadoS.8459F23A.Up2Date
+C:\Users\FamiliaAraujo\OneDrive\Documentos\Programacao\backend\.NET\MercadoSocial\obj\Debug\net8.0\MercadoSocial.sourcelink.json

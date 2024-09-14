@@ -11,6 +11,7 @@ namespace MercadoSocial.Data
 
         }
         public DbSet<ProductModel> Produtos {  get; set; }
+        public DbSet<UserModel> Usuarios { get; set; }
 
     }
 }

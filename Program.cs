@@ -22,6 +22,7 @@ namespace MercadoSocial
             ); ;
 
             builder.Services.AddScoped<IProductRepositorio, ProductRepositorio>();
+            builder.Services.AddScoped<IUserRepositorio, UserRepositorio>();
 
             var app = builder.Build();
 
