@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MercadoSocial")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ce905f0138176b32a2d610e0c50465b50f062847")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+973195d79b87c5eecfd5429ac46a778259e02d89")]
 [assembly: System.Reflection.AssemblyProductAttribute("MercadoSocial")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MercadoSocial")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
