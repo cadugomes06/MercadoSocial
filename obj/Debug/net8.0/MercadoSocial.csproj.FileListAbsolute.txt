@@ -1,5 +1,4 @@
 C:\Users\FamiliaAraujo\OneDrive\Documentos\Programacao\backend\.NET\MercadoSocial\bin\Debug\net8.0\appsettings.Development.json
-C:\Users\FamiliaAraujo\OneDrive\Documentos\Programacao\backend\.NET\MercadoSocial\bin\Debug\net8.0\appsettings.json
 C:\Users\FamiliaAraujo\OneDrive\Documentos\Programacao\backend\.NET\MercadoSocial\bin\Debug\net8.0\MercadoSocial.staticwebassets.runtime.json
 C:\Users\FamiliaAraujo\OneDrive\Documentos\Programacao\backend\.NET\MercadoSocial\bin\Debug\net8.0\MercadoSocial.exe
 C:\Users\FamiliaAraujo\OneDrive\Documentos\Programacao\backend\.NET\MercadoSocial\bin\Debug\net8.0\MercadoSocial.deps.json
@@ -135,3 +134,14 @@ C:\Users\FamiliaAraujo\OneDrive\Documentos\Programacao\backend\.NET\MercadoSocia
 C:\Users\FamiliaAraujo\OneDrive\Documentos\Programacao\backend\.NET\MercadoSocial\obj\Debug\net8.0\MercadoSocial.csproj.AssemblyReference.cache
 C:\Users\FamiliaAraujo\OneDrive\Documentos\Programacao\backend\.NET\MercadoSocial\obj\Debug\net8.0\MercadoS.8459F23A.Up2Date
 C:\Users\FamiliaAraujo\OneDrive\Documentos\Programacao\backend\.NET\MercadoSocial\obj\Debug\net8.0\MercadoSocial.sourcelink.json
+C:\Users\FamiliaAraujo\OneDrive\Documentos\Programacao\backend\.NET\MercadoSocial\bin\Debug\net8.0\bin_backup\Debug\net8.0\appsettings.Development.json
+C:\Users\FamiliaAraujo\OneDrive\Documentos\Programacao\backend\.NET\MercadoSocial\bin\Debug\net8.0\bin_backup\Debug\net8.0\MercadoSocial.deps.json
+C:\Users\FamiliaAraujo\OneDrive\Documentos\Programacao\backend\.NET\MercadoSocial\bin\Debug\net8.0\bin_backup\Debug\net8.0\MercadoSocial.runtimeconfig.json
+C:\Users\FamiliaAraujo\OneDrive\Documentos\Programacao\backend\.NET\MercadoSocial\bin\Debug\net8.0\bin_backup\Debug\net8.0\MercadoSocial.staticwebassets.runtime.json
+C:\Users\FamiliaAraujo\OneDrive\Documentos\Programacao\backend\.NET\MercadoSocial\bin\Debug\net8.0\obj_backup\Debug\net8.0\MercadoSocial.sourcelink.json
+C:\Users\FamiliaAraujo\OneDrive\Documentos\Programacao\backend\.NET\MercadoSocial\bin\Debug\net8.0\obj_backup\Debug\net8.0\staticwebassets.build.json
+C:\Users\FamiliaAraujo\OneDrive\Documentos\Programacao\backend\.NET\MercadoSocial\bin\Debug\net8.0\obj_backup\Debug\net8.0\staticwebassets.development.json
+C:\Users\FamiliaAraujo\OneDrive\Documentos\Programacao\backend\.NET\MercadoSocial\bin\Debug\net8.0\obj_backup\Debug\net8.0\staticwebassets.pack.json
+C:\Users\FamiliaAraujo\OneDrive\Documentos\Programacao\backend\.NET\MercadoSocial\bin\Debug\net8.0\obj_backup\MercadoSocial.csproj.nuget.dgspec.json
+C:\Users\FamiliaAraujo\OneDrive\Documentos\Programacao\backend\.NET\MercadoSocial\bin\Debug\net8.0\obj_backup\project.assets.json
+C:\Users\FamiliaAraujo\OneDrive\Documentos\Programacao\backend\.NET\MercadoSocial\obj\Debug\net8.0\scopedcss\Views\Shared\_LayoutDeslogado.cshtml.rz.scp.css

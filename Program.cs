@@ -19,7 +19,7 @@ namespace MercadoSocial
             builder.Services.AddEntityFrameworkSqlServer().AddDbContext<BankDbContext>
             (
                 options => options.UseSqlServer(builder.Configuration.GetConnectionString("DataBase"))
-            ); ;
+            );
 
             builder.Services.AddScoped<IProductRepositorio, ProductRepositorio>();
             builder.Services.AddScoped<IUserRepositorio, UserRepositorio>();
@@ -43,7 +43,7 @@ namespace MercadoSocial
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Login}/{action=Index}/{id?}");
 
             app.Run();
         }

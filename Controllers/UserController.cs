@@ -24,9 +24,14 @@ namespace MercadoSocial.Controllers
             return View();
         }
 
-        public IActionResult Edit()
+        public async Task<IActionResult> Edit(int id)
         {
-            return View();
+            UserModel user = await _UserRepositorio.GerUserById(id);
+            if(user == null)
+            {
+                throw new Exception("Houve um erro ao tentar locarlizar o usuário.");
+            }
+            return View(user);
         }
 
 
@@ -50,7 +55,41 @@ namespace MercadoSocial.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<ActionResult> EditUser(UserSemSenhaModel user)
+        {
+            UserModel newUser = null;
+            if (!ModelState.IsValid)
+            {
+                return View("Edit");
+            }
 
+            try
+            {
+                newUser = new UserModel()
+                {
+                    Id = user.Id,
+                    Name = user.Name,
+                    Email = user.Email,
+                    Login = user.Login,
+                    Perfil = user.Perfil
+                };
+
+                UserModel userUpdated = await _UserRepositorio.UpdateUser(newUser);
+                if (userUpdated == null)
+                {
+                    throw new Exception("Houve um erro ao buscar o usuário.");
+                }
+                TempData["SuccessMessage"] = "Usuário editado com sucesso.";
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                TempData["ErroMessage"] = "Ops... Houve um erro ao criar o seu novo produto. " + ex.Message;
+                return RedirectToAction("Index");
+            }
+        }
+    
 
 
 

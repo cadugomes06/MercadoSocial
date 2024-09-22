@@ -53,6 +53,7 @@ namespace MercadoSocial.Repositorio
             return userDB;
         }
 
+
         public async Task<bool> DeleteUser(int id)
         {
             UserModel userDB = await GerUserById(id);
