@@ -10,5 +10,7 @@ namespace MercadoSocial.Repositorio.Interfaces
         Task<UserModel> UpdateUser(UserModel user);
         Task<bool> DeleteUser(int id);
 
+        Task<UserModel> SearchUserLogin(string login);
+
     }
 }

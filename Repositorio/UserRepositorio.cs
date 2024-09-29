@@ -13,6 +13,11 @@ namespace MercadoSocial.Repositorio
             _dbContext = dbContext;
         }
 
+        public async Task<UserModel> SearchUserLogin(string login)
+        {
+            return await _dbContext.Usuarios.FirstOrDefaultAsync(u => u.Login.ToUpper() == login.ToUpper());
+        }
+
 
         public async Task<List<UserModel>> GetAllUsers()
         {
@@ -67,6 +72,6 @@ namespace MercadoSocial.Repositorio
             return true;
         }
 
-
+ 
     }
   }
