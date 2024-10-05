@@ -1,6 +1,7 @@
 
 
 using MercadoSocial.Data;
+using MercadoSocial.Helper;
 using MercadoSocial.Repositorio;
 using MercadoSocial.Repositorio.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -21,8 +22,17 @@ namespace MercadoSocial
                 options => options.UseSqlServer(builder.Configuration.GetConnectionString("DataBase"))
             );
 
+            builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             builder.Services.AddScoped<IProductRepositorio, ProductRepositorio>();
             builder.Services.AddScoped<IUserRepositorio, UserRepositorio>();
+            builder.Services.AddScoped<ISessao, Sessao>();
+
+            builder.Services.AddSession(o =>
+            {
+                o.Cookie.HttpOnly = true;
+                o.Cookie.IsEssential = true;
+            });
 
             var app = builder.Build();
 
@@ -40,6 +50,8 @@ namespace MercadoSocial
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.MapControllerRoute(
                 name: "default",

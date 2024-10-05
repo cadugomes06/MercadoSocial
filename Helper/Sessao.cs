@@ -1,5 +1,5 @@
 ﻿using MercadoSocial.Models;
-using Microsoft.AspNetCore.SignalR;
+using System.Text.Json;
 
 namespace MercadoSocial.Helper
 {
@@ -10,19 +10,27 @@ namespace MercadoSocial.Helper
         {
             _httpContext = httpContext;
         }
+
+        public UserModel SearchSectionUser()
+        {
+            string sectionUser = _httpContext.HttpContext.Session.GetString("sessaoUsuarioLogado");
+
+            if(string.IsNullOrEmpty(sectionUser)) return null;
+            
+           return JsonSerializer.Deserialize<UserModel>(sectionUser);
+        }
+
         public void createSectionUser(UserModel user)
         {
-            _httpContext.HttpContext.Session.SetString("sessaoUsuarioLogado", "");
+            string value = JsonSerializer.Serialize(user);
+            _httpContext.HttpContext.Session.SetString("sessaoUsuarioLogado", value);
         }
 
         public void RemoveSectionUser()
         {
-            throw new NotImplementedException();
+            _httpContext.HttpContext.Session.Remove("sessaoUsuarioLogado");
         }
 
-        public UserModel SearchSectionUser()
-        {
-            throw new NotImplementedException();
-        }
+     
     }
 }
