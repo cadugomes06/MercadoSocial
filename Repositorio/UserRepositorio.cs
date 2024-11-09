@@ -34,6 +34,7 @@ namespace MercadoSocial.Repositorio
         public async Task<UserModel> CreateUser(UserModel user)
         {
             user.DataCriacao = DateTime.Now;
+            user.setPasswordHash();
             await _dbContext.AddAsync(user);
             await _dbContext.SaveChangesAsync();
             return user;

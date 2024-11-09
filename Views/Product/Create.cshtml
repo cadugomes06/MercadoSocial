@@ -59,7 +59,10 @@
             <!--<p class="text-danger text-sm">@Html.ValidationMessageFor(x => x.Image)</p>-->
         </div>
 
-        <button type="submit" class="btn btn-primary mt-5">Cadastrar</button>
+        <div class="d-flex justify-content-start align-items-center mt-5">
+          <button type="submit" class="btn btn-primary d-block">Cadastrar</button>
+          <a class="btn btn-secondary m-lg-2" asp-controller="Product" asp-action="Index">Voltar</a>
+        </div>
     </form>
 
 

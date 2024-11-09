@@ -1,4 +1,6 @@
 ﻿using MercadoSocial.Enums;
+using MercadoSocial.Filters;
+using MercadoSocial.Helper;
 using MercadoSocial.Models;
 using MercadoSocial.Repositorio.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -6,14 +8,16 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MercadoSocial.Controllers
 {
-
+    [PageToUserLogged]
     public class ProductController : Controller
     {
 
         private readonly IProductRepositorio _productRepositorio;
-        public ProductController(IProductRepositorio productRepositorio)
+        private readonly ISessao _sessao;
+        public ProductController(IProductRepositorio productRepositorio, ISessao sessao)
         {
             _productRepositorio = productRepositorio;
+            _sessao = sessao;
         }
 
 
@@ -21,12 +25,14 @@ namespace MercadoSocial.Controllers
         {
             try
             {
-                if (productsBySection != null && productsBySection.Count() > 0) {
-                    return View(productsBySection);
-                } else
+                if (productsBySection != null && productsBySection.Count() > 0)
                 {
-                 List<ProductModel> products = await _productRepositorio.GetAllProducts();
-                 return View(products);
+                    return View(productsBySection);
+                }
+                else
+                {
+                    List<ProductModel> products = await _productRepositorio.GetAllProducts();
+                    return View(products);
                 }
             }
             catch (Exception er)
@@ -48,8 +54,29 @@ namespace MercadoSocial.Controllers
             return View();
         }
 
+        public async Task<JsonResult> GetProductById(int id)
+        {
+            try
+            {
+                ProductModel productDB = await _productRepositorio.GetProductById(id);
 
-        public async  Task<IActionResult> Edit(int id)
+                if (productDB == null)
+                {
+                    TempData["ErroMessage"] = "Houve um erro ao localizar o produto.";
+                    return Json(new {success = false, message = TempData});
+                }
+                return Json(productDB) ;
+            }
+            catch (Exception ex) 
+            {
+                TempData["ErroMessage"] = "Não foi possível localizar o produto." + ex.Message;
+                return Json(new {success = false, message = TempData});
+            }
+            
+        }
+
+
+        public async Task<IActionResult> Edit(int id)
         {
             var product = await _productRepositorio.GetProductById(id);
             if (product == null)
@@ -103,6 +130,9 @@ namespace MercadoSocial.Controllers
                             product.Image = memoryStream.ToArray();
                         }
                     }
+                    UserModel userLogado = _sessao.SearchSectionUser();
+                    product.UserId = userLogado.Id;
+
                     _productRepositorio.CreateProduct(product);
                     TempData["SuccessMessage"] = "Produto criado com sucesso.";
                     return RedirectToAction("Index");
@@ -164,7 +194,6 @@ namespace MercadoSocial.Controllers
                         product.Image = memoryStream.ToArray();
                     }
                 }
-
                 await _productRepositorio.EditProduct(product);
                 TempData["SuccessMessage"] = "Produto editado com sucesso.";
                 return RedirectToAction("Index");
@@ -176,8 +205,6 @@ namespace MercadoSocial.Controllers
                 return RedirectToAction("Index");
             }
         }
-
-
 
 
     }

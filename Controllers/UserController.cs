@@ -1,9 +1,11 @@
-﻿using MercadoSocial.Models;
+﻿using MercadoSocial.Filters;
+using MercadoSocial.Models;
 using MercadoSocial.Repositorio.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MercadoSocial.Controllers
 {
+    [PageRestrictedToUserAdmin]
     public class UserController : Controller
     {
         private readonly IUserRepositorio _UserRepositorio;

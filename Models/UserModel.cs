@@ -1,4 +1,5 @@
 ﻿using MercadoSocial.Enums;
+using MercadoSocial.Helper;
 
 namespace MercadoSocial.Models
 {
@@ -12,10 +13,16 @@ namespace MercadoSocial.Models
         public PerfilEnum Perfil { get; set; }
         public DateTime DataCriacao { get; set; }
         public DateTime? DataAlteracao { get; set; }
-
+        public virtual List<ProductModel> Products { get; set; }
         public bool PasswordIsValid(string password)
         {
-            return Password == password;
+            return Password == password.GenerateHash();
         }
+
+        public void setPasswordHash()
+        {
+            Password = Password.GenerateHash();
+        }
+
     }
 }

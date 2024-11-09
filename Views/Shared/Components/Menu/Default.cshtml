@@ -16,9 +16,12 @@
             <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index">Produtos</a>
         </li>
 
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Usuários</a>
-        </li>
+        @if (Model.Perfil == MercadoSocial.Enums.PerfilEnum.admin)
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Usuários</a>
+            </li>
+        }
 
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Logout">Sair</a>

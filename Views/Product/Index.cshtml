@@ -4,6 +4,8 @@
     ViewData["Title"] = "Produtos";
 }
 
+<link rel="stylesheet" href="~/css/product.css" />
+
                                       
     @if (TempData["SuccessMessage"] != null)
     {
@@ -22,7 +24,7 @@
 
 
 
-<div class="container-sm my-lg-5" >
+<div class="container-sm my-lg-5" style="position: relative;">
 
 
      
@@ -31,7 +33,7 @@
     </div>
 
     <div>
-        <a class="btn btnbtn-outline-info" role="button" asp-controller="Product" asp-action="Create">Criar produto</a>
+        <a class="btn btn-outline-info" role="button" asp-controller="Product" asp-action="Create">Criar produto</a>
         <a class="btn btn-info" role="button" asp-controller="Product" asp-action="AddProduct">Adicionar Produto</a>
     </div>
 
@@ -66,10 +68,11 @@
                <div class="card position-relative" style="width: 18rem;">
                     @if (!string.IsNullOrEmpty(product.ImageBase64))
                     {
-                        <img src="data:image/png;base64,@product.ImageBase64" 
-                             class="card-img-top" 
+                        <img src="data:image/png;base64,@product.ImageBase64"
+                             class="card-img-top activeModalProduct"
                              alt="imagem-produto"
-                             style="height: 14rem;"
+                             style="height: 14rem; cursor: pointer;" 
+                             id='@product.Id'
                         >
                         <a href="Product/Edit/@product.Id" class="position-absolute top-0 text-white icon-link icon-link-hover"
                            style="right: 2px; top: 0px; --bs-icon-link-transform: translate3d(0, -.125rem, 0);">
@@ -97,7 +100,38 @@
         }
      </div>
 
+     <div class="containerModalProduct">
+         <div class="modalProduct">
 
-    
+             <div style="padding: 10px;">
+                 <div><h1 style="text-align: center; margin-bottom: 1rem;">Arroz 5kg</h1></div>
+
+                 <div style="display: flex; justify-content: center; margin-bottom: 2rem;">
+                    <img src="~/Assets/cereais.jpg" style="width: 350px; height: 300px;" />
+                 </div>
+
+                 <div>
+                     <p>Descrição do produto e bdokjijdifj bla bla bla.</p>
+                 </div>
+
+                 <div>
+                    <p>Seção: Cereal</p>
+                 </div>
+
+                 <div>
+                     <p>Criado por: Criador</p>
+                 </div>
+
+                 <div style="width: 100%; height: 50px; background: #eee; display:flex; justify-content: end;
+                            align-items: center; gap: 16px; padding-right: 2rem;">
+                    <button>Excluir</button>
+                    <button>Editar</button>
+                 </div>
+             </div>
+
+            <button class="btn btn-close btnCloseModal"></button>
+         </div>
+     </div>
+
 
 </div>

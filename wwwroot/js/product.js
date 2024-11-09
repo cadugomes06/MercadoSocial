@@ -41,8 +41,10 @@ function updateProducts() {
         console.log("Nenhuma seção selecionada.");
     }
 }
-document.getElementById("sectionSelect").addEventListener("change", updateProducts);
 
+$(function () {
+    $(document).on('change', '#sectionSelect', updateProducts);
+});
 
 
 
@@ -115,6 +117,67 @@ function filterListBySection() {
     }
 }
 
-document.getElementById("filterSection").addEventListener("change", filterListBySection);
+$(function () {
+    $(document).on('change', '#filterSection', filterListBySection)
+});
 
 
+//Ativar modal ao clicar no produto
+$(document).on('click', '.activeModalProduct', async function () {
+    var productId = $(this).attr('id');
+
+    try {
+        var product = await getProductById(productId);
+
+        if (product != null) {
+            showOnScreen(product);
+        }
+
+    } catch (error) {
+        console.log("Erro ao buscar o Produto. " + error);
+    }
+
+    $(".containerModalProduct").removeClass("hide");
+});
+
+
+//Fechar Modal
+$(document).on('click', '.btnCloseModal', function () {
+    console.log("btnClose");
+    $(".containerModalProduct").addClass("hide");
+});
+
+
+//Buscar um produto pelo ID
+async function getProductById(productId) {
+
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: `/Product/GetProductById/${productId}`,
+            type: 'GET',
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (product) {
+
+                if (product) {
+                    console.log("sucesso na requisição AJAX");
+                    resolve(product);
+                } else {
+                    console.log("Não deu sucesso!");
+                    return "Produto não encontrato";
+                }
+            },
+            erro: function (error) {
+                console.log("Houve um erro na requisição AJAX" + error);
+                reject(error);
+            }
+        });
+    });
+}
+
+function showOnScreen(product) {
+    var containerModal = $(".containerModalProduct");
+
+    var element = document.createElement('div');
+    element.innerHTML = ``;
+}

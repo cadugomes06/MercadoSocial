@@ -1,4 +1,5 @@
-﻿using MercadoSocial.Models;
+﻿using MercadoSocial.Data.Map;
+using MercadoSocial.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace MercadoSocial.Data
@@ -12,6 +13,11 @@ namespace MercadoSocial.Data
         }
         public DbSet<ProductModel> Produtos {  get; set; }
         public DbSet<UserModel> Usuarios { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new ProductMap());
+            base.OnModelCreating(modelBuilder);
+        }
 
     }
 }

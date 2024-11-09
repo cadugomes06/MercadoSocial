@@ -1,0 +1,27 @@
+﻿
+.containerModalProduct {
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, .4);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modalProduct{
+    width: 600px;
+    height: 600px;
+    background: #ffffff;
+    border-radius: 6px;
+    box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.btnCloseModal {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}

@@ -47,7 +47,12 @@ namespace MercadoSocial.Migrations
                     b.Property<int>("Section")
                         .HasColumnType("int");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Produtos");
                 });
@@ -88,6 +93,20 @@ namespace MercadoSocial.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Usuarios");
+                });
+
+            modelBuilder.Entity("MercadoSocial.Models.ProductModel", b =>
+                {
+                    b.HasOne("MercadoSocial.Models.UserModel", "User")
+                        .WithMany("Products")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MercadoSocial.Models.UserModel", b =>
+                {
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

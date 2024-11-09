@@ -22,6 +22,10 @@ namespace MercadoSocial.Models
         [Required(ErrorMessage = "Preencha a quantidade do produto.")]
         public int Quantity { get; set; }
 
+        public int? UserId { get; set; }
+        public UserModel? User { get; set; }
+
+
         public byte[]? Image { get; set; }
 
         public string? ImageBase64
