@@ -206,6 +206,14 @@ namespace MercadoSocial.Controllers
             }
         }
 
+        [HttpDelete]
+        public async Task<ActionResult<ProductModel>> RemoveProduct(int id)
+        {
+                bool productRemoved = await _productRepositorio.RemoveProduct(id);
+                return Ok(productRemoved);
+        }
+
+
 
     }
 }

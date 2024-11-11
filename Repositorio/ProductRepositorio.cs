@@ -77,8 +77,19 @@ namespace MercadoSocial.Repositorio
             return productDb;                        
         }
 
+        public async Task<bool> RemoveProduct(int id)
+        {
+            ProductModel productDB = await GetProductById(id);
+            if(productDB == null)
+            {
+                throw new Exception("Houve um erro inesperado, produto não encontrado!");
+            }
 
-
-
+            _bankDbContext.Remove(productDB);
+            await _bankDbContext.SaveChangesAsync();
+            return true;
+        }
     }
+
+
 }

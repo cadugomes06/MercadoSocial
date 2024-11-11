@@ -144,6 +144,7 @@ $(document).on('click', '.activeModalProduct', async function () {
 //Fechar Modal
 $(document).on('click', '.btnCloseModal', function () {
     console.log("btnClose");
+
     $(".containerModalProduct").addClass("hide");
 });
 
@@ -175,9 +176,37 @@ async function getProductById(productId) {
     });
 }
 
+
 function showOnScreen(product) {
-    var containerModal = $(".containerModalProduct");
+    var modalProduct = $(".modalProduct");
 
     var element = document.createElement('div');
-    element.innerHTML = ``;
+    modalProduct.empty();
+
+    element.innerHTML = `
+              <div style="padding: 10px;">
+                 <div><h2 style="text-align: center; margin-bottom: 1rem; margin-top: 1rem;">${product.name}</h2></div>
+
+                 <div style="display: flex; justify-content: center; margin-bottom: 1rem;">
+                    <img src="data:image/png;base64,${product.imageBase64}" style="width: 300px;
+                       height: 280px; object-fit: cover; box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.2); border-radius: 6px;" />
+                 </div>
+
+                 <div>
+                     <p><strong>Descrição:</strong> ${product.description}.</p>
+                     <p><strong>Seção:</strong> ${product.section}.</p>
+                     <p><strong>Quantidade:</strong> ${product.quantity} unidades.</p>
+                     <p><strong>Criado por:</strong> ${product.userId}.</p>
+                 </div>
+
+                 <div style="width: 100%; height: 50px; display:flex; justify-content: end; align-items: center; gap: 16px;
+                 padding-right: 1rem;">
+                    <button class="btn btn-danger">Excluir</button>
+                     <a href="/Product/Edit/${product.id}" class="btn btn-secondary">Editar</a>
+                 </div>
+             </div>
+             <button class="btn btn-close btnCloseModal"></button>
+             `;
+
+    modalProduct.append(element);
 }

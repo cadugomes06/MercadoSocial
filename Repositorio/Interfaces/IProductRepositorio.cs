@@ -10,5 +10,6 @@ namespace MercadoSocial.Repositorio.Interfaces
         ProductModel CreateProduct(ProductModel product);
         Task<ProductModel> AddProduct(int quantity, int id);
         Task<ProductModel> EditProduct(ProductModel product);
+        Task<bool> RemoveProduct(int id);
     }
 }
