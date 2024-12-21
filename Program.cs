@@ -1,9 +1,12 @@
 
 
+using DinkToPdf;
+using DinkToPdf.Contracts;
 using MercadoSocial.Data;
 using MercadoSocial.Helper;
 using MercadoSocial.Repositorio;
 using MercadoSocial.Repositorio.Interfaces;
+using MercadoSocial.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace MercadoSocial
@@ -27,6 +30,11 @@ namespace MercadoSocial
             builder.Services.AddScoped<IProductRepositorio, ProductRepositorio>();
             builder.Services.AddScoped<IUserRepositorio, UserRepositorio>();
             builder.Services.AddScoped<ISessao, Sessao>();
+
+            builder.Services.AddTransient<InvoiceRenderingService>();
+
+            //builder.Services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
+            //builder.Services.AddScoped<DinkGeneratorPDF>();
 
             builder.Services.AddSession(o =>
             {

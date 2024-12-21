@@ -36,6 +36,24 @@ namespace MercadoSocial.Controllers
             return View(user);
         }
 
+        [HttpGet]
+        public async Task<UserModel> GetUserById(int id)
+        {
+            try
+            {
+                UserModel user = await _UserRepositorio.GerUserById(id);
+                if(user != null)
+                {
+                    return user;                
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Houve um erro ao buscar o usuário");
+            }
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> Create(UserModel user)

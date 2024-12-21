@@ -4,6 +4,7 @@ using MercadoSocial.Helper;
 using MercadoSocial.Models;
 using MercadoSocial.Repositorio.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using static System.Collections.Specialized.BitVector32;
 
 
 namespace MercadoSocial.Controllers
@@ -63,16 +64,16 @@ namespace MercadoSocial.Controllers
                 if (productDB == null)
                 {
                     TempData["ErroMessage"] = "Houve um erro ao localizar o produto.";
-                    return Json(new {success = false, message = TempData});
+                    return Json(new { success = false, message = TempData });
                 }
-                return Json(productDB) ;
+                return Json(productDB);
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 TempData["ErroMessage"] = "Não foi possível localizar o produto." + ex.Message;
-                return Json(new {success = false, message = TempData});
+                return Json(new { success = false, message = TempData });
             }
-            
+
         }
 
 
@@ -197,7 +198,7 @@ namespace MercadoSocial.Controllers
                 await _productRepositorio.EditProduct(product);
                 TempData["SuccessMessage"] = "Produto editado com sucesso.";
                 return RedirectToAction("Index");
-            
+
             }
             catch (Exception ex)
             {
@@ -206,12 +207,39 @@ namespace MercadoSocial.Controllers
             }
         }
 
-        [HttpDelete]
-        public async Task<ActionResult<ProductModel>> RemoveProduct(int id)
+
+        [HttpPost]
+        public async Task<ActionResult<bool>> RemoveProduct(int id)
         {
+            try
+            {
                 bool productRemoved = await _productRepositorio.RemoveProduct(id);
-                return Ok(productRemoved);
+                if (productRemoved)
+                {
+                    return Ok(productRemoved);
+                }
+                return BadRequest("Produto não encontrado ou não pode ser excluído.");
+;            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Erro interno ao tentar excluir o produto");
+            }
         }
+
+
+        [HttpGet]
+        public IActionResult TypeSectionEnum(int section)
+        {
+            if (Enum.IsDefined(typeof(SecaoEnum), section))
+            {
+                var sectionEnum = (SecaoEnum)section;
+                return Ok(sectionEnum.ToString()); // Nome do enum
+            }
+            return NotFound("Seção inválida.");
+        }
+
+
+
 
 
 

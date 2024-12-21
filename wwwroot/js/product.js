@@ -37,8 +37,6 @@ function updateProducts() {
                 console.error('Erro ao buscar produtos:', textStatus, errorThrown);
             }
         });
-    } else {
-        console.log("Nenhuma seção selecionada.");
     }
 }
 
@@ -63,32 +61,24 @@ function filterListBySection() {
             contentType: 'application/json; charset=utf-8',
             data: { section: filterValue },
             success: function (data) {
-                //console.log("dados recebidos", data)
 
                 const containerCards = document.getElementById('containerProducts')
                 containerCards.innerHTML = '';
                 if (data && data.length > 0) {
-                    console.log("criando cards...")
 
                     data.forEach(product => {
                         const productElement = document.createElement('div');
                         productElement.className = 'card position-relative';
                         productElement.style.width = '18rem'
                         productElement.innerHTML = `                         
-                            <img src="data:image/png;base64,${product.imageBase64}"
-                             class="card-img-top"
+                             <img src="data:image/png;base64,${product.imageBase64}"
+                             class="card-img-top activeModalProduct"
                              alt="imagem-produto"
-                             style="height: 14rem;"
-                             />
-                             <a href="Product/Edit/${product.id}" class="position-absolute top-0 text-white icon-link icon-link-hover"
-                                style="right: 2px; top: 0px; --bs-icon-link-transform: translate3d(0, -.125rem, 0);">
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#808080" class="bi bi-pencil-fill" viewBox="0 0 16 16">
-                                    <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
-                                 </svg>
-                             </a>
+                             style="height: 14rem; cursor: pointer;"
+                             id='@product.Id'
+                             >
 
                              <div class="card-body">
-
                                 <div class="d-flex align-content-center justify-content-between">
                                   <h5 class="card-title">${product.name}</h5>
                                   <p class="text-dark fs-6 text-center">
@@ -122,19 +112,25 @@ $(function () {
 });
 
 
+
 //Ativar modal ao clicar no produto
 $(document).on('click', '.activeModalProduct', async function () {
     var productId = $(this).attr('id');
+    console.log("abrir modal ?!");
 
     try {
         var product = await getProductById(productId);
 
         if (product != null) {
-            showOnScreen(product);
+            var user = await getUserById(product.userId);
+        }
+
+        if (product != null && user != null) {
+            showOnScreen(product, user);
         }
 
     } catch (error) {
-        console.log("Erro ao buscar o Produto. " + error);
+        console.log("Erro ao buscar dados do Produto. " + error);
     }
 
     $(".containerModalProduct").removeClass("hide");
@@ -143,8 +139,6 @@ $(document).on('click', '.activeModalProduct', async function () {
 
 //Fechar Modal
 $(document).on('click', '.btnCloseModal', function () {
-    console.log("btnClose");
-
     $(".containerModalProduct").addClass("hide");
 });
 
@@ -157,14 +151,11 @@ async function getProductById(productId) {
             url: `/Product/GetProductById/${productId}`,
             type: 'GET',
             contentType: 'application/json; charset=utf-8',
-
             success: function (product) {
 
                 if (product) {
-                    console.log("sucesso na requisição AJAX");
                     resolve(product);
                 } else {
-                    console.log("Não deu sucesso!");
                     return "Produto não encontrato";
                 }
             },
@@ -177,11 +168,51 @@ async function getProductById(productId) {
 }
 
 
-function showOnScreen(product) {
-    var modalProduct = $(".modalProduct");
+async function getUserById(id) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: '/User/GetUserById/' + id,
+            type: 'GET',
+            ContentType: 'application/json',
+            success: function (data) {
+                if (data) {
+                    resolve(data);
+                }
+            },
+            erro: function (er) {
+                console.log("Houve um erro na requisição ", + er);
+                reject(er);
+            }
+        });
+    });
+}
 
+function getTypeSection(section) {
+
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: '/Product/TypeSectionEnum?section=' + section,
+            type: 'GET',
+            contentType: 'application/json; chatset=utf-8',
+            success: function (sectionEnum) {
+                resolve(sectionEnum);
+            },
+            error: function (er) {
+                reject("Erro ao processar a solicitação..." + er.responseText);
+            }
+        });
+
+    });
+}
+
+
+async function showOnScreen(product, user) {
+    var modalProduct = $(".modalProduct");
     var element = document.createElement('div');
     modalProduct.empty();
+
+    var numSection = product.section
+    var enumName = await getTypeSection(numSection);
 
     element.innerHTML = `
               <div style="padding: 10px;">
@@ -194,14 +225,14 @@ function showOnScreen(product) {
 
                  <div>
                      <p><strong>Descrição:</strong> ${product.description}.</p>
-                     <p><strong>Seção:</strong> ${product.section}.</p>
+                     <p><strong>Seção:</strong> ${enumName} </p>
                      <p><strong>Quantidade:</strong> ${product.quantity} unidades.</p>
-                     <p><strong>Criado por:</strong> ${product.userId}.</p>
+                     <p><strong>Criado por:</strong> ${user.name}.</p>
                  </div>
 
                  <div style="width: 100%; height: 50px; display:flex; justify-content: end; align-items: center; gap: 16px;
                  padding-right: 1rem;">
-                    <button class="btn btn-danger">Excluir</button>
+                     <a data-id="${product.id}" class="btn btn-danger btn-remove-product">Excluir</a>
                      <a href="/Product/Edit/${product.id}" class="btn btn-secondary">Editar</a>
                  </div>
              </div>
@@ -210,3 +241,28 @@ function showOnScreen(product) {
 
     modalProduct.append(element);
 }
+
+
+$(document).on('click', '.btn-remove-product', function () {
+    var productId = $(this).data('id');
+
+    if (confirm("Tem certeza que deseja excluir esse produto?")) {
+        $.ajax({
+            url: '/Product/RemoveProduct/',
+            type: 'POST',
+            data: { id: productId },
+            success: function (res) {
+
+                if (res) {
+                    alert("Produto excluído com sucesso");
+                    $(this).closest('div').remove();
+                } else {
+                    alert("Falha ao excluir produto!");
+                }
+            },
+            erro: function (er) {
+                alert("Erro ao processar a requisição " + er.responseText);
+            }
+        });
+    }
+})
