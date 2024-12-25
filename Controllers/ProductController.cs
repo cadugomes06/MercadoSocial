@@ -55,6 +55,11 @@ namespace MercadoSocial.Controllers
             return View();
         }
 
+        public IActionResult ShopCart()
+        {
+            return View();
+        }
+
         public async Task<JsonResult> GetProductById(int id)
         {
             try

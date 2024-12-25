@@ -6,7 +6,8 @@
         aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
 </button>
-<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+<div class="navbar-collapse collapse" style="display:flex; justify-content:space-around; align-items:center;">
+
     <ul class="navbar-nav flex-grow-1">
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
@@ -27,4 +28,19 @@
             <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Logout">Sair</a>
         </li>
     </ul>
+
+    <div style="width:120px; display:flex; justify-content:center; position:relative;">
+        <div>
+            <a asp-controller="Product" asp-action="ShopCart">
+                <img src="~/Assets/carrinho.png"
+                     alt="carrinho-de-compras"
+                     width="32" height="32"
+                     style="cursor:pointer;"
+                     id="imgShopCart" />
+            </a>
+            <p id="countShopCart" style="position:absolute; top:0; right:30px;">0</p>
+        </div>
+    </div>
+
 </div>
+

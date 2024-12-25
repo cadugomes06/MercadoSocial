@@ -75,7 +75,7 @@ function filterListBySection() {
                              class="card-img-top activeModalProduct"
                              alt="imagem-produto"
                              style="height: 14rem; cursor: pointer;"
-                             id='@product.Id'
+                             id=${product.id}
                              >
 
                              <div class="card-body">
