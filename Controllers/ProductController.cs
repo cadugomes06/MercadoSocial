@@ -4,6 +4,8 @@ using MercadoSocial.Helper;
 using MercadoSocial.Models;
 using MercadoSocial.Repositorio.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using static System.Collections.Specialized.BitVector32;
 
 
@@ -44,7 +46,6 @@ namespace MercadoSocial.Controllers
         }
 
 
-
         public IActionResult Create()
         {
             return View();
@@ -55,17 +56,37 @@ namespace MercadoSocial.Controllers
             return View();
         }
 
-        public IActionResult ShopCart()
+
+        [HttpGet]
+        public async Task<IActionResult> ShopCart(List<int> productsIds)
         {
-            return View();
+            if (productsIds == null || !productsIds.Any())
+            {
+                return BadRequest("Nenhum produto foi passado.");
+            }
+
+            try
+            {
+                var products = await _productRepositorio.GetProductsByIds(productsIds);
+                if (products == null || !products.Any())
+                {
+                    return NotFound("Não foi encontrado nenhum produto!");
+                }
+
+                return View(products);
+            }
+            catch (Exception er)
+            {
+                return StatusCode(500, $"Houve um erro interno ao tentar processar a requisição: {er.Message}");
+            }
         }
+
 
         public async Task<JsonResult> GetProductById(int id)
         {
             try
             {
                 ProductModel productDB = await _productRepositorio.GetProductById(id);
-
                 if (productDB == null)
                 {
                     TempData["ErroMessage"] = "Houve um erro ao localizar o produto.";
@@ -78,7 +99,6 @@ namespace MercadoSocial.Controllers
                 TempData["ErroMessage"] = "Não foi possível localizar o produto." + ex.Message;
                 return Json(new { success = false, message = TempData });
             }
-
         }
 
 
@@ -224,7 +244,8 @@ namespace MercadoSocial.Controllers
                     return Ok(productRemoved);
                 }
                 return BadRequest("Produto não encontrado ou não pode ser excluído.");
-;            }
+                ;
+            }
             catch (Exception ex)
             {
                 return StatusCode(500, "Erro interno ao tentar excluir o produto");

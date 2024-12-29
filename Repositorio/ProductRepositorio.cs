@@ -25,6 +25,11 @@ namespace MercadoSocial.Repositorio
            return product;
         }        
 
+        public async Task<List<ProductModel>> GetProductsByIds(List<int> ids)
+        {
+            List<ProductModel> products = await _bankDbContext.Produtos.Where(p => ids.Contains(p.Id)).ToListAsync();
+            return products;
+        }
 
         public async Task<List<ProductModel>> GetProductsBySection(Enum section)
         {

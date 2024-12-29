@@ -6,6 +6,7 @@ namespace MercadoSocial.Repositorio.Interfaces
     {
         Task<List<ProductModel>> GetAllProducts();        
         Task<ProductModel> GetProductById(int id);
+        Task<List<ProductModel>> GetProductsByIds(List<int> ids);
         Task<List<ProductModel>> GetProductsBySection(Enum section);
         ProductModel CreateProduct(ProductModel product);
         Task<ProductModel> AddProduct(int quantity, int id);

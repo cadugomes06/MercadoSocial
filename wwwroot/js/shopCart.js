@@ -36,3 +36,24 @@ function countShopCart() {
     localStorage.setItem("shopCart", shopCart);
 }
 
+
+$(document).ready(function () {
+    $(".takeItemsToShopCart").on('click', function () {
+        var productsIds = JSON.parse(localStorage.getItem("itemsShopCart"));
+        console.log(productsIds);
+
+        fillShopCartPage(productsIds);
+    });
+})
+
+async function fillShopCartPage(productsIds) {
+    if (!productsIds || productsIds.length === 0) {
+        console.log("Os items não podem ser nulos!");
+        return;
+    }
+
+    const query = productsIds.map(id => `productsIds=${encodeURIComponent(id)}`).join('&');
+    const url = `/Product/ShopCart?${query}`
+
+    window.location.href = url;
+}

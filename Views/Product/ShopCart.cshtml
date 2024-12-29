@@ -1,14 +1,36 @@
-﻿
+﻿@model List<ProductModel>
 @{
-    ViewData["Title"] = "Carrinho de Compras"; 
+    ViewData["Title"] = "Carrinho de Compras";
 }
 
-<section>
-    <div>
+<section style="width:100%; min-height:600px; display:flex; align-items:center; flex-direction:column;">
+    <div style="margin-bottom:2rem;">
         <h1>Carrinho de compras.</h1>
     </div>
 
     <div>
-        <p>Produtos...</p>
+            @if (Model.Count == 0)
+            {
+                <div><h4>Não há produtos no carrinho...</h4></div>
+            }
+            else
+            {
+                <div style="width:1000px; background:#eee; height:auto; padding:10px; box-shadow:1px 1px 6px 1px rgba(0,0,0,0.1);">
+                    @foreach (var product in Model)
+                    {
+                        <div style="display:flex; background:#e3e3e3; padding:4px; height:60px; width:100%; margin-bottom: 12px; 
+                                   border-radius:4px; box-shadow:1px 1px 6px rgba(0,0,0,0.1); align-items:center;">
+
+                           <div><img src="data:image/png;base64,@product.ImageBase64" 
+                                     alt="imagem-do-produto" 
+                                     height="50" width="60" />
+                           </div>
+                           <div>@product.Name</div>
+                           <div>@product.Quantity</div>
+
+                        </div>
+                    }
+               </div>
+            }
     </div>
 </section>
