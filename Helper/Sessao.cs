@@ -31,6 +31,5 @@ namespace MercadoSocial.Helper
             _httpContext.HttpContext.Session.Remove("sessaoUsuarioLogado");
         }
 
-     
     }
 }

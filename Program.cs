@@ -4,6 +4,7 @@ using DinkToPdf;
 using DinkToPdf.Contracts;
 using MercadoSocial.Data;
 using MercadoSocial.Helper;
+using MercadoSocial.Logger;
 using MercadoSocial.Repositorio;
 using MercadoSocial.Repositorio.Interfaces;
 using MercadoSocial.Services;
@@ -30,6 +31,7 @@ namespace MercadoSocial
             builder.Services.AddScoped<IProductRepositorio, ProductRepositorio>();
             builder.Services.AddScoped<IUserRepositorio, UserRepositorio>();
             builder.Services.AddScoped<ISessao, Sessao>();
+            builder.Services.AddScoped<ILoggerService, LoggerService>();
 
             builder.Services.AddTransient<InvoiceRenderingService>();
 

@@ -1,8 +1,8 @@
 ﻿using MercadoSocial.Helper;
+using MercadoSocial.Logger;
 using MercadoSocial.Models;
 using MercadoSocial.Repositorio.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MercadoSocial.Controllers
 {
@@ -11,10 +11,12 @@ namespace MercadoSocial.Controllers
 
         private readonly IUserRepositorio _userRepositorio;
         private readonly ISessao _sessao;
-        public LoginController(IUserRepositorio userRepositorio, ISessao sessao)
+        private readonly ILoggerService _logger;
+        public LoginController(IUserRepositorio userRepositorio, ISessao sessao, ILoggerService logger)
         {
             _userRepositorio = userRepositorio;
             _sessao = sessao;
+            _logger = logger;
         }
 
 
@@ -41,10 +43,13 @@ namespace MercadoSocial.Controllers
                     {
                         if (user.PasswordIsValid(loginModel.Password))
                         {
+                            
                             _sessao.createSectionUser(user);
+                            await _logger.CreateLogger("Login", $"Usuario: {user.Name}, logou.", user.Id);
+ 
+
                           return RedirectToAction("Index", "Home");
                         }
-
                         TempData["ErroMessage"] = "Usuário e/ou senha inválido(s).";
                     }
                 }
@@ -61,6 +66,7 @@ namespace MercadoSocial.Controllers
 
         public ActionResult Logout()
         {
+            _logger.CreateLogger("LogOut", $"Usuario: {_sessao.SearchSectionUser().Name}, deslogou.", _sessao.SearchSectionUser().Id);
             _sessao.RemoveSectionUser();
             return RedirectToAction("Index", "Login");
         }

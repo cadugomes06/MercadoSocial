@@ -1,14 +1,14 @@
 
 
-var shopCart;
+var NumShopCart;
 var productsOnShopCart = [];
 
 $(document).ready(function () {
-    shopCart = parseInt(localStorage.getItem("shopCart")) || 0;
+    NumShopCart = parseInt(localStorage.getItem("NumShopCart")) || 0;
     productsOnShopCart = JSON.parse(localStorage.getItem("itemsShopCart")) || [];
     console.log("teste: ", productsOnShopCart);
 
-    $("#countShopCart").text(shopCart);
+    $("#countShopCart").text(NumShopCart);
 
     $(".addItemOnShopCart").on('click', function () {
         var productID = $(this).data('id');
@@ -19,7 +19,7 @@ $(document).ready(function () {
 
 function addItemOnShopCart(productID) {
     if (productsOnShopCart.includes(productID)) {
-       alert("Ops... O item já foi adicionado");
+        alert("Ops... O item já foi adicionado");
         return;
     }
 
@@ -31,9 +31,9 @@ function addItemOnShopCart(productID) {
 
 
 function countShopCart() {
-    shopCart = shopCart + 1;
-    $("#countShopCart").text(shopCart);
-    localStorage.setItem("shopCart", shopCart);
+    NumShopCart = NumShopCart + 1;
+    $("#countShopCart").text(NumShopCart);
+    localStorage.setItem("NumShopCart", NumShopCart);
 }
 
 
@@ -48,7 +48,7 @@ $(document).ready(function () {
 
 async function fillShopCartPage(productsIds) {
     if (!productsIds || productsIds.length === 0) {
-        console.log("Os items não podem ser nulos!");
+        alert("Adicione um produto primeiro");
         return;
     }
 
@@ -57,3 +57,30 @@ async function fillShopCartPage(productsIds) {
 
     window.location.href = url;
 }
+
+
+$(".addQuantity").on('click', function () {
+    var input = $(this).closest("#containerQuantityCart").find("#inputQuantityItem");
+
+    var inputValue = parseInt(input.val()) || 1;
+
+    if (inputValue < 10) {
+        inputValue++;
+        input.val(inputValue);
+    }
+});
+
+$(".removeQuantity").on('click', function () {
+    var input = $(this).closest("#containerQuantityCart").find("#inputQuantityItem");
+
+    var inputValue = parseInt(input.val()) || 1;
+
+    if (inputValue > 1 ) {
+        inputValue--;
+        input.val(inputValue);
+    }
+});
+
+$(".btnRemoveItemCart").on('click', function () {
+    console.log("deletar item...");
+})
