@@ -6,7 +6,8 @@ var productsOnShopCart = [];
 $(document).ready(function () {
     NumShopCart = parseInt(localStorage.getItem("NumShopCart")) || 0;
     productsOnShopCart = JSON.parse(localStorage.getItem("itemsShopCart")) || [];
-    console.log("teste: ", productsOnShopCart);
+
+    console.log("productsOnShopCart: ", productsOnShopCart);
 
     $("#countShopCart").text(NumShopCart);
 
@@ -14,6 +15,13 @@ $(document).ready(function () {
         var productID = $(this).data('id');
         addItemOnShopCart(productID);
     });
+})
+
+$(document).on(function () {
+    const productsStoraged = JSON.parse(localStorage.getItem("itemsShopCart")) || [];
+
+    console.log("atualizou...");
+    updateShopCartItems();
 })
 
 
@@ -36,11 +44,18 @@ function countShopCart() {
     localStorage.setItem("NumShopCart", NumShopCart);
 }
 
+function removeTotalItemsShopCart() {
+    if (NumShopCart > 0) {
+        NumShopCart = NumShopCart - 1;
+        $("#countShopCart").text(NumShopCart);
+        localStorage.setItem("NumShopCart", NumShopCart);
+    }
+}
 
 $(document).ready(function () {
     $(".takeItemsToShopCart").on('click', function () {
         var productsIds = JSON.parse(localStorage.getItem("itemsShopCart"));
-        console.log(productsIds);
+        console.log("takeItemsToShopCart ", productsIds);
 
         fillShopCartPage(productsIds);
     });
@@ -81,6 +96,47 @@ $(".removeQuantity").on('click', function () {
     }
 });
 
-$(".btnRemoveItemCart").on('click', function () {
-    console.log("deletar item...");
+
+$(document).on('click', ".btnRemoveItemCart", function() {
+
+    const productId = $(this).closest("div").find(".productId").val();
+    removeItemShopCart(productId);
 })
+
+function removeItemShopCart(productId) {
+    const arrProducts = JSON.parse(localStorage.getItem("itemsShopCart"));
+
+    productId = parseInt(productId, 10);
+
+    const index = arrProducts.indexOf(productId);
+
+    if (index === -1) {
+        alert("Não foi possível localizar o produto para remove-lo")
+    }
+
+    arrProducts.splice(index, 1);
+    localStorage.setItem("itemsShopCart", JSON.stringify(arrProducts));
+
+    removeTotalItemsShopCart();
+    updateShopCartItems(arrProducts);
+}
+
+function updateShopCartItems(arrProducts) {
+
+    console.log("Tipo... ", typeof arrProducts);
+    console.log("Tipo... ", arrProducts);
+
+    $.ajax({
+        url: '/Product/UpdateListShopCart',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(arrProducts),
+        success: function (response) {
+            $('.pv_wrapperProducts').html(response);
+            console.log("Response OK");
+        },
+        error: function (er) {
+            console.log("Erro...", er.responseText);
+        }
+    });
+}

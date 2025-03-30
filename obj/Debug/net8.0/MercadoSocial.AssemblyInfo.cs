@@ -14,7 +14,7 @@
 //[assembly: System.Reflection.AssemblyCompanyAttribute("MercadoSocial")]
 //[assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 //[assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-//[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c19cfdb29b0851bcf553c4ec7597196981e182dd")]
+//[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c899c4f8c33aecf1b35e69499701d7167cfd927a")]
 //[assembly: System.Reflection.AssemblyProductAttribute("MercadoSocial")]
 //[assembly: System.Reflection.AssemblyTitleAttribute("MercadoSocial")]
 //[assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

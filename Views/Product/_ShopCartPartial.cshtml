@@ -1,0 +1,67 @@
+﻿@model List<ProductModel>
+
+<style>
+    .inputNoStyle {
+        max-width: 25px;
+        height: auto;
+        border: none;
+        outline: none;
+    }
+
+    .btnsPlusLess {
+        padding: 4px;
+        box-shadow: 1px 1px 6px 1px rgba(0,0,0,0.2);
+        cursor: pointer;
+        transition: 1s;
+        height: 25px;
+        user-select: none;
+    }
+
+    .btnsPlusLess:hover {
+        background: #bdbdbd;
+    }
+</style>
+
+
+
+@if (!Model.Any())
+{
+    <div><h4>Não há produtos no carrinho...</h4></div>
+}
+else
+{
+        @foreach (var product in Model)
+        {
+            <div style="display:flex; align-items:center; justify-content:space-between; background:#ffffff; padding:6px; height:60px; width:100%; margin-bottom: 12px;
+                                   border-radius:4px; box-shadow:1px 1px 6px rgba(0,0,0,0.1);" class="wrapperProduct">
+
+                <div style="width:100px;">
+                    <img src="data:image/png;base64,@product.ImageBase64"
+                         alt="imagem-do-produto"
+                         height="50" width="60"
+                         style="border-radius:6px; box-shadow:1px 1px 6px 1px rgba(0,0,0,0.2);" />
+                </div>
+
+                <div style="width:400px;">@product.Name</div>
+
+                <div style="display:flex; align-items:center; gap:2px; width:200px;" id="containerQuantityCart">
+                    Qt:
+                    <input type="text"
+                           value="1"
+                           class="inputNoStyle"
+                           id="inputQuantityItem"
+                           disabled />
+                    <div style="display:flex; flex-direction:column; justify-content:center; font-size:14px; font-weight:bold; width:20px; gap:4px;">
+                        <div class="btnsPlusLess addQuantity">+</div>
+                        <div class="btnsPlusLess removeQuantity">-</div>
+                    </div>
+                </div>
+
+
+                <div>
+                    <input type="hidden" value="@product.Id" class="productId" />
+                    <button class="btn btn-danger btnRemoveItemCart">X</button>
+                </div>
+            </div>
+        }
+}   
