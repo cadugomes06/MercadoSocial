@@ -28,16 +28,25 @@ namespace MercadoSocial.Logger
 
         public async Task<LoggerModel> CreateLogger(string title, string description, int? userId)
         {
-            LoggerModel log = new LoggerModel()
+            try
             {
-                Title = title,
-                Description = description,
-                UserId = userId
-            };
 
-             await _bankDbContext.AddAsync(log);
-             await _bankDbContext.SaveChangesAsync();
-            return log;
+                LoggerModel log = new LoggerModel()
+                {
+                    Title = title,
+                    Description = description,
+                    UserId = userId
+                };
+
+                await _bankDbContext.AddAsync(log);
+                await _bankDbContext.SaveChangesAsync();
+                return log;
+            }
+            catch (Exception ex)
+            {
+                //Não gerar exceção;
+            }
+            return null;
         }
 
 

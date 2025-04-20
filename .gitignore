@@ -30,3 +30,6 @@ packages/
 *.pem
 
 console.log
+.claudiaideconfig
+.editorconfig
+appsettings.Development.json

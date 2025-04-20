@@ -33,13 +33,13 @@ namespace MercadoSocial.Controllers
         {
             try
             {
-                await _logger.CreateLogger("Entrou na pagina de Produtos", $"Usuario acessou a pagina de Produtos", _sessao.SearchSectionUser().Id);
+                //await _logger.CreateLogger("Entrou na pagina de Produtos", $"Usuario acessou a pagina de Produtos", _sessao.SearchSectionUser().Id);
                 List<ProductModel> products = await _productRepositorio.GetAllProducts();
                 return View(products);
 
             }
             catch (Exception er)
-            {
+            { 
                 TempData["ErroMensage"] = "Ooops.. Houve um erro ao redirecionar para essa página" + er.Message;
                 await _logger.CreateLogger("Entrando na Home", $"Houve uma falha ao redirecionar para a Home, {er.Message}", _sessao.SearchSectionUser().Id);
                 return View();
