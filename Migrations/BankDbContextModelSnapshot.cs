@@ -17,10 +17,61 @@ namespace MercadoSocial.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.6")
+                .HasAnnotation("ProductVersion", "9.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("MercadoSocial.Models.BasketItemsModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BasketId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BasketId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ItemCestaBasica");
+                });
+
+            modelBuilder.Entity("MercadoSocial.Models.BasketModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CriadorId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DataCriacao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CriadorId");
+
+                    b.ToTable("CestaBasica");
+                });
 
             modelBuilder.Entity("MercadoSocial.Models.LoggerModel", b =>
                 {
@@ -124,6 +175,36 @@ namespace MercadoSocial.Migrations
                     b.ToTable("Usuarios");
                 });
 
+            modelBuilder.Entity("MercadoSocial.Models.BasketItemsModel", b =>
+                {
+                    b.HasOne("MercadoSocial.Models.BasketModel", "Basket")
+                        .WithMany("Items")
+                        .HasForeignKey("BasketId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MercadoSocial.Models.ProductModel", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Basket");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("MercadoSocial.Models.BasketModel", b =>
+                {
+                    b.HasOne("MercadoSocial.Models.UserModel", "Criador")
+                        .WithMany()
+                        .HasForeignKey("CriadorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Criador");
+                });
+
             modelBuilder.Entity("MercadoSocial.Models.LoggerModel", b =>
                 {
                     b.HasOne("MercadoSocial.Models.UserModel", "User")
@@ -140,6 +221,11 @@ namespace MercadoSocial.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MercadoSocial.Models.BasketModel", b =>
+                {
+                    b.Navigation("Items");
                 });
 
             modelBuilder.Entity("MercadoSocial.Models.UserModel", b =>

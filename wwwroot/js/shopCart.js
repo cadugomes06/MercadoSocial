@@ -68,7 +68,7 @@ async function fillShopCartPage(productsIds) {
     }
 
     const query = productsIds.map(id => `productsIds=${encodeURIComponent(id)}`).join('&');
-    const url = `/Product/ShopCart?${query}`
+    const url = `/ShopCart/Index?${query}`
 
     window.location.href = url;
 }
@@ -127,7 +127,7 @@ function updateShopCartItems(arrProducts) {
     console.log("Tipo... ", arrProducts);
 
     $.ajax({
-        url: '/Product/UpdateListShopCart',
+        url: '/ShopCart/UpdateListShopCart',
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify(arrProducts),

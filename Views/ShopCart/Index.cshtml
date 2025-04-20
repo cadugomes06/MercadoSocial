@@ -1,4 +1,4 @@
-﻿@* @model List<ProductModel>
+﻿@model List<ProductModel>
 @{
     ViewData["Title"] = "Carrinho de Compras";
 }
@@ -11,9 +11,8 @@
     </div>
 
     <div style="width:80%; background:#EDEDED; height:auto; padding:20px; box-shadow:1px 1px 6px 1px rgba(0,0,0,0.2);" class="pv_wrapperProducts">
-      @await Html.PartialAsync("_ShopCartPartial", Model)
+        @await Html.PartialAsync("_ShopCartPartial", Model)
     </div>
-    
+
 </section>
 
- *@

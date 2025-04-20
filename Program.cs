@@ -1,7 +1,4 @@
 
-
-using DinkToPdf;
-using DinkToPdf.Contracts;
 using MercadoSocial.Data;
 using MercadoSocial.Helper;
 using MercadoSocial.Logger;
@@ -55,7 +52,9 @@ namespace MercadoSocial
             }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
+            app.MapStaticAssets();
+            //app.UseStaticFiles();
+
 
             app.UseRouting();
 

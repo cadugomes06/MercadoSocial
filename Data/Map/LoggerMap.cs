@@ -9,7 +9,9 @@ namespace MercadoSocial.Data.Map
         public void Configure(EntityTypeBuilder<LoggerModel> builder)
         {
             builder.HasKey(x => x.Id);            
-            builder.HasOne(u => u.User).WithMany().HasForeignKey(u => u.UserId);
+            builder.HasOne(u => u.User)
+                   .WithMany()
+                   .HasForeignKey(u => u.UserId);
         }
     }
 }
