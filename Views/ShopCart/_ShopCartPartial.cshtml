@@ -2,23 +2,23 @@
 
 <style>
     .inputNoStyle {
-        max-width: 25px;
-        height: auto;
-        border: none;
-        outline: none;
+    max-width: 25px;
+    height: auto;
+    border: none;
+    outline: none;
     }
 
     .btnsPlusLess {
-        padding: 4px;
-        box-shadow: 1px 1px 6px 1px rgba(0,0,0,0.2);
-        cursor: pointer;
-        transition: 1s;
-        height: 25px;
-        user-select: none;
+    padding: 4px;
+    box-shadow: 1px 1px 6px 1px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: 1s;
+    height: 25px;
+    user-select: none;
     }
 
     .btnsPlusLess:hover {
-        background: #bdbdbd;
+    background: #bdbdbd;
     }
 </style>
 
@@ -30,10 +30,10 @@
 }
 else
 {
-        @foreach (var product in Model)
-        {
-            <div style="display:flex; align-items:center; justify-content:space-between; background:#ffffff; padding:6px; height:60px; width:100%; margin-bottom: 12px;
-                                   border-radius:4px; box-shadow:1px 1px 6px rgba(0,0,0,0.1);" class="wrapperProduct">
+    @foreach (var product in Model)
+    {
+        <div style="display:flex; align-items:center; justify-content:space-between; background:#ffffff; padding:6px; height:60px; width:100%; margin-bottom: 12px;
+                                   border-radius:4px; box-shadow:1px 1px 6px rgba(0,0,0,0.1);" class="wrapperProduct" id=@("wrapperProduct" + product.Id)>
 
                 <div style="width:100px;">
                     <img src="data:image/png;base64,@product.ImageBase64"
@@ -50,7 +50,9 @@ else
                            value="1"
                            class="inputNoStyle"
                            id="inputQuantityItem"
-                           disabled />
+                           name=@(product.Id)
+                           disabled 
+                     />
                     <div style="display:flex; flex-direction:column; justify-content:center; font-size:14px; font-weight:bold; width:20px; gap:4px;">
                         <div class="btnsPlusLess addQuantity">+</div>
                         <div class="btnsPlusLess removeQuantity">-</div>

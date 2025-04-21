@@ -48,7 +48,7 @@ namespace MercadoSocial.Repositorio
                 throw new Exception("Houve um erro na atualização do usuário.");
             }
 
-            userDB.Name = user.Email;
+            userDB.Name = user.Name;
             userDB.Email = user.Email;
             userDB.Login = user.Login;
             userDB.Perfil = user.Perfil;
